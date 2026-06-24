@@ -9,7 +9,10 @@ from './form-builder/form-builder.component';
 import { FormPreviewComponent }
 from './form-preview/form-preview.component';
 
-export const routes: Routes=[
+import { DynamicFormComponent }
+from './dynamic-form/dynamic-form.component';
+
+export const routes: Routes = [
 
 {
 path:'',
@@ -30,6 +33,11 @@ component:FormBuilderComponent
 {
 path:'preview',
 component:FormPreviewComponent
+},
+
+{
+path:'dynamic-form/:id',
+component:DynamicFormComponent
 }
 
 ];

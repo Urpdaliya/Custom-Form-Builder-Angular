@@ -1,169 +1,257 @@
-<div class="setup-container">
+<div class="setup-wrapper">
 
-    <div class="setup-card">
+<div class="setup-header">
 
-        <h1>
-            ⚙ Form Setup
-        </h1>
+<h1>
+⚙ Dynamic Form Setup
+</h1>
 
-        <div class="form-group">
+<p>
+Configure your custom form before building fields
+</p>
 
-            <label>
-                Form Name
-            </label>
-
-            <input
-            type="text"
-            [(ngModel)]="form.formName"
-            placeholder="Enter Form Name"
-            >
-
-        </div>
+</div>
 
 
-        <div class="form-group">
+<div class="setup-card">
 
-            <label>
-                Description
-            </label>
+<div class="row">
 
-            <textarea
-            [(ngModel)]="form.description"
-            rows="4"
-            placeholder="Enter Description"
-            >
-            </textarea>
+<div class="form-group">
 
-        </div>
+<label>
 
+Form Name
 
-        <div class="row">
+</label>
 
-            <div class="form-group">
+<input
+type="text"
+[(ngModel)]="form.formName"
+placeholder="Enter form name"
+>
 
-                <label>
-                    Category
-                </label>
-
-                <select
-                [(ngModel)]="form.category"
-                >
-
-                    <option value="">
-                        Select Category
-                    </option>
-
-                    <option>
-                        Employee
-                    </option>
-
-                    <option>
-                        Survey
-                    </option>
-
-                    <option>
-                        Registration
-                    </option>
-
-                    <option>
-                        Feedback
-                    </option>
-
-                </select>
-
-            </div>
+</div>
 
 
-            <div class="form-group">
+<div class="form-group">
 
-                <label>
-                    Theme Color
-                </label>
+<label>
 
-                <input
-                type="color"
-                [(ngModel)]="form.theme"
-                >
+Category
 
-            </div>
+</label>
 
-        </div>
+<select
+[(ngModel)]="form.category"
+>
+
+<option value="">
+Select category
+</option>
+
+<option>
+Registration
+</option>
+
+<option>
+Survey
+</option>
+
+<option>
+Employee
+</option>
+
+<option>
+Feedback
+</option>
+
+</select>
+
+</div>
+
+</div>
 
 
 
-        <div class="row">
+<div class="form-group">
 
-            <div class="form-group">
+<label>
 
-                <label>
-                    Start Date
-                </label>
+Description
 
-                <input
-                type="date"
-                [(ngModel)]="form.startDate"
-                >
+</label>
 
-            </div>
+<textarea
+rows="4"
+[(ngModel)]="form.description"
+placeholder="Write form description"
+>
 
+</textarea>
 
-            <div class="form-group">
-
-                <label>
-                    End Date
-                </label>
-
-                <input
-                type="date"
-                [(ngModel)]="form.endDate"
-                >
-
-            </div>
-
-        </div>
-
-
-        <div class="checkbox-row">
-
-            <label>
-
-                Multiple Submission
-
-            </label>
-
-            <input
-            type="checkbox"
-            [(ngModel)]="form.multipleSubmit"
-            >
-
-        </div>
-
-
-        <div class="checkbox-row">
-
-            <label>
-
-                Active Form
-
-            </label>
-
-            <input
-            type="checkbox"
-            [(ngModel)]="form.status"
-            >
-
-        </div>
+</div>
 
 
 
-        <button
-        (click)="saveSetup()"
-        >
+<div class="row">
 
-            Save Setup
+<div class="form-group">
 
-        </button>
+<label>
 
-    </div>
+Start Date
+
+</label>
+
+<input
+type="date"
+[(ngModel)]="form.startDate"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+
+End Date
+
+</label>
+
+<input
+type="date"
+[(ngModel)]="form.endDate"
+>
+
+</div>
+
+</div>
+
+
+
+<div class="row">
+
+<div class="form-group">
+
+<label>
+
+Theme Color
+
+</label>
+
+<input
+type="color"
+[(ngModel)]="form.theme"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+
+Form Status
+
+</label>
+
+<select
+[(ngModel)]="form.status"
+>
+
+<option [ngValue]="true">
+
+Active
+
+</option>
+
+<option [ngValue]="false">
+
+Inactive
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+
+<div class="toggle-container">
+
+<div class="toggle-box">
+
+<div>
+
+<h4>
+
+Allow Multiple Submit
+
+</h4>
+
+<p>
+
+Users can submit more than once
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+[(ngModel)]="form.multipleSubmit"
+>
+
+</div>
+
+
+
+<div class="toggle-box">
+
+<div>
+
+<h4>
+
+QR Enable
+
+</h4>
+
+<p>
+
+Generate QR code for form
+
+</p>
+
+</div>
+
+<input
+type="checkbox"
+[(ngModel)]="form.enableQr"
+>
+
+</div>
+
+</div>
+
+
+
+<div class="button-area">
+
+<button
+class="save-btn"
+(click)="saveSetup()"
+>
+
+Save Setup
+
+</button>
+
+</div>
+
+</div>
 
 </div>

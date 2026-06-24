@@ -23,7 +23,7 @@ styleUrls:[
 
 export class FormSetupComponent{
 
-form={
+form = {
 
 formName:'',
 
@@ -39,7 +39,9 @@ endDate:'',
 
 multipleSubmit:false,
 
-status:true
+status:true,
+
+enableQr:false
 
 };
 
