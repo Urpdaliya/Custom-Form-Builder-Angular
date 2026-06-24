@@ -1,185 +1,315 @@
-<div class="setup-container">
+<div class="builder-container">
 
-<div class="setup-card">
+<!-- LEFT PANEL -->
 
-<h1>
+<div
+class="left-panel"
+cdkDropList
+#fieldList="cdkDropList"
+[cdkDropListData]="availableFields"
+[cdkDropListConnectedTo]="[dropArea]"
+>
 
-⚙ Form Setup
+<h2>Available Fields</h2>
 
-</h1>
+<div
+class="field-box"
+*ngFor="let field of availableFields"
+cdkDrag
+>
+
+{{field.label}}
+
+</div>
+
+</div>
 
 
-<div class="form-group">
+
+<!-- RIGHT PANEL -->
+
+<div
+class="right-panel"
+cdkDropList
+#dropArea="cdkDropList"
+[cdkDropListData]="selectedFields"
+[cdkDropListConnectedTo]="[fieldList]"
+(cdkDropListDropped)="drop($event)"
+>
+
+<h2>Form Builder Area</h2>
+
+<div
+class="field-card"
+*ngFor="
+let field of selectedFields;
+let i=index
+"
+>
+
+<h3>
+
+Field {{i+1}}
+
+</h3>
+
 
 <label>
 
-Form Name
+Title
 
 </label>
 
 <input
-type="text"
-[(ngModel)]="form.formName"
-placeholder="Enter form name"
+[(ngModel)]="field.label"
 >
 
-</div>
-
-
-<div class="form-group">
 
 <label>
 
-Description
+Placeholder
 
 </label>
 
-<textarea
-[(ngModel)]="form.description"
-placeholder="Enter description"
-rows="4"
+<input
+[(ngModel)]="field.placeholder"
 >
 
-</textarea>
 
-</div>
-
-
-
-<div class="row">
-
-<div class="form-group">
 
 <label>
 
-Category
-
-</label>
-
-<select
-[(ngModel)]="form.category"
->
-
-<option value="">
-Select
-</option>
-
-<option>
-Employee
-</option>
-
-<option>
-Survey
-</option>
-
-<option>
-Registration
-</option>
-
-<option>
-Feedback
-</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-
-Theme Color
+Color
 
 </label>
 
 <input
 type="color"
-[(ngModel)]="form.theme"
+[(ngModel)]="field.color"
 >
 
-</div>
-
-</div>
-
-
-
-<div class="row">
-
-<div class="form-group">
 
 <label>
 
-Start Date
+Width %
 
 </label>
 
 <input
-type="date"
-[(ngModel)]="form.startDate"
+type="number"
+[(ngModel)]="field.width"
 >
 
-</div>
 
-
-<div class="form-group">
+<div class="required-section">
 
 <label>
 
-End Date
-
-</label>
-
-<input
-type="date"
-[(ngModel)]="form.endDate"
->
-
-</div>
-
-</div>
-
-
-
-<div class="checkbox-row">
-
-<label>
-
-Allow Multiple Submission
+Required
 
 </label>
 
 <input
 type="checkbox"
-[(ngModel)]="form.multipleSubmit"
+[(ngModel)]="field.required"
 >
 
 </div>
 
 
 
-<div class="checkbox-row">
+<!-- Dropdown -->
+
+<div
+*ngIf="
+field.type=='dropdown'
+||
+field.type=='radio'
+"
+>
 
 <label>
 
-Form Active
+Options
+(comma separated)
 
 </label>
 
 <input
-type="checkbox"
-[(ngModel)]="form.status"
+[(ngModel)]="field.optionText"
+placeholder="A,B,C"
 >
+
+</div>
+
+
+<button
+class="delete-btn"
+(click)="removeField(i)"
+>
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="button-section">
+
+<button
+class="preview-btn"
+(click)="preview()"
+>
+
+Preview
+
+</button>
+
+
+<button
+class="save-btn"
+(click)="saveForm()"
+>
+
+Save Form
+
+</button>
+
+</div>
+
+
+
+
+<!-- PREVIEW MODAL -->
+
+<div
+class="preview-modal"
+*ngIf="showPreview"
+>
+
+<div class="preview-content">
+
+<h2>
+
+Form Preview
+
+</h2>
+
+
+<div
+class="preview-field"
+*ngFor="let field of selectedFields"
+>
+
+<label
+[style.color]="field.color"
+>
+
+{{field.label}}
+
+<span *ngIf="field.required">
+
+*
+
+</span>
+
+</label>
+
+
+
+<input
+
+*ngIf="
+field.type=='text'
+||
+field.type=='email'
+||
+field.type=='number'
+"
+
+[type]="field.type"
+
+[placeholder]="field.placeholder"
+
+[style.width.%]="field.width"
+
+>
+
+
+<textarea
+
+*ngIf="
+field.type=='textarea'
+"
+
+[placeholder]="field.placeholder"
+
+[style.width.%]="field.width"
+
+>
+
+</textarea>
+
+
+
+<select
+
+*ngIf="
+field.type=='dropdown'
+"
+
+[style.width.%]="field.width"
+
+>
+
+<option
+*ngFor=
+"let item of getOptions(field)"
+>
+
+{{item}}
+
+</option>
+
+</select>
+
+
+
+<div
+*ngIf="
+field.type=='radio'
+"
+>
+
+<label
+*ngFor=
+"let item of getOptions(field)"
+>
+
+<input
+type="radio"
+>
+
+{{item}}
+
+</label>
+
+</div>
 
 </div>
 
 
 
 <button
-(click)="saveForm()"
+(click)="closePreview()"
 >
 
-Save Form
+Close
 
 </button>
 

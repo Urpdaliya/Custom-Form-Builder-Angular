@@ -30,105 +30,202 @@ import { Router } from '@angular/router';
 
 export class FormBuilderComponent{
 
-  showPreview=false;
+showPreview=false;
 
-  availableFields=[
+availableFields=[
 
-    {type:'text',label:'Text'},
-    {type:'email',label:'Email'},
-    {type:'number',label:'Number'},
-    {type:'date',label:'Date'},
-    {type:'textarea',label:'Textarea'},
-    {type:'dropdown',label:'Dropdown'},
-    {type:'checkbox',label:'Checkbox'},
-    {type:'radio',label:'Radio'}
+{
+type:'text',
+label:'Text'
+},
 
-  ];
+{
+type:'email',
+label:'Email'
+},
 
-  selectedFields:any[]=[];
+{
+type:'number',
+label:'Number'
+},
 
-  constructor(
-    private router:Router
-  ){}
+{
+type:'date',
+label:'Date'
+},
 
+{
+type:'textarea',
+label:'Textarea'
+},
 
-  drop(
-    event:CdkDragDrop<any[]>
-  ){
+{
+type:'dropdown',
+label:'Dropdown'
+},
 
-    if(
-      event.previousContainer
-      ===
-      event.container
-    ){
+{
+type:'checkbox',
+label:'Checkbox'
+},
 
-      moveItemInArray(
+{
+type:'radio',
+label:'Radio'
+}
 
-        this.selectedFields,
-
-        event.previousIndex,
-
-        event.currentIndex
-
-      );
-
-    }
-    else{
-
-      const copiedField={
-
-        id:Date.now(),
-
-        ...event.previousContainer
-        .data[event.previousIndex],
-
-        placeholder:'',
-
-        required:false,
-
-        options:['Option1']
-
-      };
-
-      this.selectedFields.push(
-        copiedField
-      );
-
-    }
-
-  }
+];
 
 
-  preview(){
+selectedFields:any[]=[];
 
-    this.showPreview=true;
-
-  }
-
-
-  closePreview(){
-
-    this.showPreview=false;
-
-  }
+constructor(
+private router:Router
+){}
 
 
-  saveForm(){
+drop(
+event:CdkDragDrop<any[]>
+){
 
-    localStorage.setItem(
+if(
+event.previousContainer
+===
+event.container
+){
 
-      'previewFields',
+moveItemInArray(
 
-      JSON.stringify(
-        this.selectedFields
-      )
+this.selectedFields,
 
-    );
+event.previousIndex,
 
-    this.router.navigate(
-      ['/preview']
-    );
+event.currentIndex
 
-  }
+);
+
+}
+else{
+
+const field=
+event.previousContainer
+.data[event.previousIndex];
+
+const copiedField={
+
+id:Date.now(),
+
+type:field.type,
+
+label:field.label,
+
+placeholder:'',
+
+required:false,
+
+color:'#1976d2',
+
+width:100,
+
+defaultValue:'',
+
+optionText:
+field.type==='dropdown'
+||
+field.type==='radio'
+?
+'Option1,Option2'
+:
+''
+
+};
+
+this.selectedFields.push(
+copiedField
+);
+
+}
+
+}
+
+
+/* Delete field */
+
+removeField(
+index:number
+){
+
+this.selectedFields.splice(
+index,
+1
+);
+
+}
+
+
+/* Dropdown/Radio values */
+
+getOptions(
+field:any
+){
+
+return field.optionText
+?
+field.optionText
+.split(',')
+:
+[];
+
+}
+
+
+/* Preview popup */
+
+preview(){
+
+this.showPreview=true;
+
+}
+
+
+/* Close preview */
+
+closePreview(){
+
+this.showPreview=false;
+
+}
+
+
+/* Save form */
+
+saveForm(){
+
+const formData={
+
+fields:
+this.selectedFields
+
+};
+
+localStorage.setItem(
+
+'previewFields',
+
+JSON.stringify(
+formData
+)
+
+);
+
+alert(
+'Form Saved Successfully'
+);
+
+this.router.navigate(
+['/preview']
+);
+
+}
 
 }
