@@ -1,0 +1,188 @@
+<div class="setup-container">
+
+<div class="setup-card">
+
+<h1>
+
+⚙ Form Setup
+
+</h1>
+
+
+<div class="form-group">
+
+<label>
+
+Form Name
+
+</label>
+
+<input
+type="text"
+[(ngModel)]="form.formName"
+placeholder="Enter form name"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+
+Description
+
+</label>
+
+<textarea
+[(ngModel)]="form.description"
+placeholder="Enter description"
+rows="4"
+>
+
+</textarea>
+
+</div>
+
+
+
+<div class="row">
+
+<div class="form-group">
+
+<label>
+
+Category
+
+</label>
+
+<select
+[(ngModel)]="form.category"
+>
+
+<option value="">
+Select
+</option>
+
+<option>
+Employee
+</option>
+
+<option>
+Survey
+</option>
+
+<option>
+Registration
+</option>
+
+<option>
+Feedback
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+
+Theme Color
+
+</label>
+
+<input
+type="color"
+[(ngModel)]="form.theme"
+>
+
+</div>
+
+</div>
+
+
+
+<div class="row">
+
+<div class="form-group">
+
+<label>
+
+Start Date
+
+</label>
+
+<input
+type="date"
+[(ngModel)]="form.startDate"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+
+End Date
+
+</label>
+
+<input
+type="date"
+[(ngModel)]="form.endDate"
+>
+
+</div>
+
+</div>
+
+
+
+<div class="checkbox-row">
+
+<label>
+
+Allow Multiple Submission
+
+</label>
+
+<input
+type="checkbox"
+[(ngModel)]="form.multipleSubmit"
+>
+
+</div>
+
+
+
+<div class="checkbox-row">
+
+<label>
+
+Form Active
+
+</label>
+
+<input
+type="checkbox"
+[(ngModel)]="form.status"
+>
+
+</div>
+
+
+
+<button
+(click)="saveForm()"
+>
+
+Save Form
+
+</button>
+
+</div>
+
+</div>
